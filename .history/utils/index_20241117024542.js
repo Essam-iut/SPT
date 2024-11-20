@@ -1,0 +1,12 @@
+import { drizzle } from "drizzle-orm/mysql2";
+import mysql from "mysql2/promise";
+
+const connection = await mysql.createConnection({
+  host: "host",
+  user: "user",
+  database: "database",
+  password:''
+});
+
+const db = drizzle({ client: connection });
+E:/Semester5/RDBMS/Project/spt/.next/static/chunks/webpack.js
