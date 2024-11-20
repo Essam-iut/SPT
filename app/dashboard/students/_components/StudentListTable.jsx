@@ -25,11 +25,33 @@ const paginationPageSizeSelector = [25, 50, 100];
 const StudentListTable = ({ studentList, refreshData }) => {
   const CustomButtons = (props) => {
   //  Add Delete Record Logic and Button ==> Mohammed
+     return (
+      <AlertDialog>
+        <AlertDialogTrigger>
+          <Button variant="destructive">
+            <Trash />
+          </Button>
+        </AlertDialogTrigger>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+            <AlertDialogDescription>
+              This action cannot be undone. This will permanently delete your
+              trecord and remove your data from our servers.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogAction onClick={()=>DeleteRecord(props?.data.id)}>Continue</AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+    )
   }
   const [colDefs, setColDefs] = useState([
     { field: "id", filter: true },
     { field: "name", filter: true },
-    { field: "contact", filter: true },
+    { field: "Contact", filter: true },
     { field: "address", filter: true },
     { field: 'action', cellRenderer: CustomButtons },
   ]);
@@ -49,7 +71,9 @@ const StudentListTable = ({ studentList, refreshData }) => {
   }
 
 //  Add Delete useEffect ===> Mohammed
-
+useEffect(() => {
+    studentList && setRowData(studentList);
+  }, [studentList]);
 
   return (
     <div className="my-7">
@@ -66,7 +90,7 @@ const StudentListTable = ({ studentList, refreshData }) => {
       </div>
       <div
         className="ag-theme-quartz" // applying the Data Grid theme
-        style={{ height: 500 }} // the Data Grid will fill the size of the parent container
+        style={{ height: 500 }} //The data Grid will fill the size of the parent container
       >
         <AgGridReact
           rowData={rowData}
