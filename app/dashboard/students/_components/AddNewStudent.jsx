@@ -39,7 +39,17 @@ function AddNewStudent() {
     });
   };
   
-  // Add The use Effect and GetAllGrades Function ===>> Halima 
+  // The use Effect and GetAllGrades Function ===
+  useEffect(() => {
+    GetALLGradesList();
+  }, []);
+
+  const GetALLGradesList = () => {
+    GloableApi.GetAllGrades().then((resp) => {
+      setGrades(resp.data);
+    });
+  };
+
 
   return (
     <div>
